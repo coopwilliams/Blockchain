@@ -107,7 +107,7 @@ class Blockchain(object):
         guess = f'{block_string}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
 
-        return guess_hash[:6] == "000000"
+        return guess_hash[:3] == "000"
 
 
 # Instantiate our Node
@@ -148,9 +148,10 @@ def mine():
 
     submitted_proof = values['proof']
 
-    block_string = json.dumps(blockchain.last_block, sort_keys=True)
+    block_string = json.dumps(blockchain.last_block, sort_keys=True).encode()
     if blockchain.valid_proof(block_string, submitted_proof):
-        blockchain.new_transaction('0',
+        print("coin mined")
+        blockchain.new_transaction(' 0',
                                     values['id'],
                                     1)
     # Forge the new Block by adding it to the chain with the proof
